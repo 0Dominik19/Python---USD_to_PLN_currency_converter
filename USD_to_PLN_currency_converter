@@ -1,0 +1,27 @@
+print ("Welcome to the USD to PLN currency converter!")
+print("")
+
+import urllib.request
+import json
+
+
+def get_exchange_rate():
+    url = "https://api.nbp.pl/api/exchangerates/rates/a/usd/"
+    response = urllib.request.urlopen(url)
+    data = json.loads(response.read().decode())
+    rate = data["rates"][0]["mid"]
+    return float(rate)
+
+
+def main() -> object:
+    exchange_rate = get_exchange_rate()
+    amount = float(input("Enter the amount of USD to calculate: "))
+    result = round(amount * exchange_rate, 2)
+    print("")
+    print(f"{amount} USD is equal {result} PLN.")
+
+if "__main__" == __name__:
+    main()
+
+print("")
+print("Thank you for using the currency calculator!")
